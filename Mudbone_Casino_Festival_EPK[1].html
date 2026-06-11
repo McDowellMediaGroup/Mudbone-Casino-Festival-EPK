@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MUDBONE — Casino & Festival EPK</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:    #0A0806;
+    --iron:     #1C150E;
+    --card:     #221A10;
+    --amber:    #C8901A;
+    --amber-lt: #E8B040;
+    --bone:     #F2EDE4;
+    --muted:    #A89880;
+    --blood:    #8B1A1A;
+    --white:    #FDFAF5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--bone);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://drive.google.com/thumbnail?id=1RpG28ymoiRPJnHJE-m-iZb11_mWncaG4&sz=w1600');
+    background-size: cover;
+    background-position: center top;
+    filter: brightness(0.28) sepia(0.4);
+    transform: scale(1.04);
+    transition: transform 12s ease;
+  }
+
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 60%, rgba(200,144,26,0.18) 0%, transparent 70%),
+      linear-gradient(to bottom, rgba(10,8,6,0.5) 0%, rgba(10,8,6,0.0) 40%, rgba(10,8,6,0.8) 80%, rgba(10,8,6,1) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 2rem;
+    max-width: 900px;
+  }
+
+  .logo-wrap {
+    margin-bottom: 2.5rem;
+  }
+
+  .logo-wrap img {
+    width: min(380px, 72vw);
+    height: auto;
+    filter: drop-shadow(0 0 40px rgba(200,144,26,0.55)) drop-shadow(0 0 8px rgba(200,144,26,0.3));
+  }
+
+  .hero-genre {
+    font-family: 'Special Elite', serif;
+    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+    letter-spacing: 0.35em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 3.5vw, 2rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--white);
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.5;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: var(--amber);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Special Elite', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 0.35rem;
+  }
+
+  /* ─── SCROLL HINT ───────────────────────────────────── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    opacity: 0.5;
+    animation: bounce 2.4s ease infinite;
+  }
+  .scroll-hint svg { width: 24px; height: 24px; fill: var(--amber); }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ─── AMBER RULE ────────────────────────────────────── */
+  .rule {
+    width: 64px;
+    height: 2px;
+    background: var(--amber);
+    margin: 0 auto 2rem;
+  }
+
+  /* ─── SECTION SHELL ─────────────────────────────────── */
+  .section {
+    padding: 5rem 2rem;
+    max-width: 1060px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-family: 'Special Elite', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.38em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 2rem;
+  }
+
+  /* ─── SEPARATOR ─────────────────────────────────────── */
+  .sep {
+    border: none;
+    border-top: 1px solid rgba(200,144,26,0.2);
+    margin: 0;
+  }
+
+  /* ─── BIO ───────────────────────────────────────────── */
+  .bio-text {
+    font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+    line-height: 1.85;
+    color: var(--bone);
+    max-width: 720px;
+  }
+
+  .bio-text p + p { margin-top: 1.2em; }
+
+  .pull-quote {
+    border-left: 3px solid var(--amber);
+    padding: 1.2rem 1.5rem;
+    margin: 3rem 0;
+    background: var(--card);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .pull-quote blockquote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    color: var(--white);
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+  }
+
+  .pull-quote cite {
+    font-family: 'Special Elite', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    text-transform: uppercase;
+  }
+
+  /* ─── PERFORMANCE GRID ──────────────────────────────── */
+  .perf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .perf-card {
+    background: var(--card);
+    border: 1px solid rgba(200,144,26,0.15);
+    border-radius: 4px;
+    padding: 1.6rem;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .perf-card:hover {
+    border-color: rgba(200,144,26,0.55);
+    transform: translateY(-3px);
+  }
+
+  .perf-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--amber);
+    margin-bottom: 0.6rem;
+  }
+
+  .perf-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ─── TOURED WITH ───────────────────────────────────── */
+  .toured-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .toured-pill {
+    background: var(--card);
+    border: 1px solid rgba(200,144,26,0.2);
+    border-radius: 2px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.82rem;
+    color: var(--bone);
+    font-family: 'Lato', sans-serif;
+    white-space: nowrap;
+  }
+
+  /* ─── VIDEO GRID ────────────────────────────────────── */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .video-link {
+    display: block;
+    background: var(--card);
+    border: 1px solid rgba(200,144,26,0.15);
+    border-radius: 4px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .video-link:hover {
+    border-color: var(--amber);
+    transform: translateY(-3px);
+  }
+
+  .video-thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #111;
+    overflow: hidden;
+  }
+
+  .video-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.75;
+    transition: opacity 0.25s;
+  }
+
+  .video-link:hover .video-thumb img { opacity: 1; }
+
+  .play-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .play-icon svg {
+    width: 48px;
+    height: 48px;
+    fill: none;
+    stroke: var(--amber);
+    stroke-width: 1.5;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+  }
+
+  .video-info {
+    padding: 1rem 1.2rem;
+  }
+
+  .video-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .video-info p {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: 'Special Elite', serif;
+    letter-spacing: 0.08em;
+  }
+
+  /* ─── MUSIC ─────────────────────────────────────────── */
+  .music-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .music-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--card);
+    border: 1px solid rgba(200,144,26,0.15);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+    text-decoration: none;
+    color: var(--bone);
+    transition: border-color 0.25s, background 0.25s;
+  }
+
+  .music-link:hover {
+    border-color: var(--amber);
+    background: rgba(200,144,26,0.06);
+  }
+
+  .music-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--amber);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .music-icon svg { width: 18px; height: 18px; fill: var(--black); }
+
+  .music-link-text strong {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .music-link-text span {
+    font-size: 0.76rem;
+    color: var(--muted);
+    font-family: 'Special Elite', serif;
+  }
+
+  /* ─── ENDORSEMENTS ──────────────────────────────────── */
+  .endorse-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.5rem;
+  }
+
+  .endorse-pill {
+    background: transparent;
+    border: 1px solid rgba(200,144,26,0.35);
+    border-radius: 2px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+    color: var(--amber-lt);
+    font-family: 'Special Elite', serif;
+    letter-spacing: 0.06em;
+  }
+
+  /* ─── CONTACT ───────────────────────────────────────── */
+  .contact-block {
+    background: var(--card);
+    border: 1px solid rgba(200,144,26,0.2);
+    border-radius: 4px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    .contact-block { grid-template-columns: 1fr; }
+  }
+
+  .contact-item label {
+    font-family: 'Special Elite', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--amber);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-item a,
+  .contact-item p {
+    font-size: 0.95rem;
+    color: var(--bone);
+    text-decoration: none;
+  }
+
+  .contact-item a:hover { color: var(--amber-lt); }
+
+  /* ─── SOCIAL ROW ────────────────────────────────────── */
+  .social-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(200,144,26,0.15);
+  }
+
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid rgba(200,144,26,0.35);
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--bone);
+    font-family: 'Special Elite', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .social-btn:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  .social-btn svg { width: 15px; height: 15px; fill: currentColor; }
+
+  /* ─── FOOTER ────────────────────────────────────────── */
+  footer {
+    background: var(--iron);
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid rgba(200,144,26,0.15);
+  }
+
+  footer img {
+    height: 40px;
+    width: auto;
+    opacity: 0.75;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 6px rgba(200,144,26,0.3));
+  }
+
+  footer p {
+    font-family: 'Special Elite', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .mmg-credit {
+    margin-top: 0.8rem;
+    font-size: 0.6rem;
+    color: rgba(168,152,128,0.45);
+    letter-spacing: 0.15em;
+  }
+
+  /* ─── PHOTO STRIP ───────────────────────────────────── */
+  .photo-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin: 0;
+  }
+
+  .photo-strip img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    filter: brightness(0.82) sepia(0.12);
+    transition: filter 0.3s;
+  }
+
+  .photo-strip img:hover { filter: brightness(1) sepia(0); }
+
+  @media (max-width: 700px) {
+    .photo-strip { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { gap: 2rem; }
+  }
+
+  /* ─── AVAILABILITY BANNER ───────────────────────────── */
+  .avail-banner {
+    background: var(--blood);
+    padding: 1rem 2rem;
+    text-align: center;
+  }
+
+  .avail-banner p {
+    font-family: 'Special Elite', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: #f8d7d7;
+    text-transform: uppercase;
+  }
+
+  /* highlights the booking CTA */
+  .book-cta {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 0.9rem 2.4rem;
+    background: var(--amber);
+    color: var(--black);
+    font-family: 'Special Elite', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+    font-weight: 700;
+  }
+
+  .book-cta:hover {
+    background: var(--amber-lt);
+    transform: translateY(-2px);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ AVAILABILITY BANNER ═══════════════════════════════ -->
+<div class="avail-banner">
+  <p>Now Accepting Casino &amp; Festival Bookings — 2026 / 2027</p>
+</div>
+
+<!-- ═══ HERO ══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <div class="logo-wrap">
+      <img
+        src="https://drive.google.com/thumbnail?id=1NhLKzIRg-hA8RJsEbqnOiS6Ip5We8zpV&sz=w800"
+        alt="Mudbone"
+        onerror="this.style.display='none'; document.querySelector('.hero-name').style.display='block'"
+      >
+      <h1 class="hero-name" style="display:none; font-family:'Playfair Display',serif; font-size:clamp(3rem,10vw,7rem); font-weight:900; color:var(--white); letter-spacing:0.04em;">MUDBONE</h1>
+    </div>
+
+    <p class="hero-genre">Blues · Soul · Country · Folk · Rock &amp; Roll · Americana</p>
+
+    <p class="hero-tagline">
+      "He will reach into your soul, conjure your demons, and then release them for you."
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">200+</span>
+        <span class="stat-label">Shows / Year</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">36</span>
+        <span class="stat-label">States + International</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">25</span>
+        <span class="stat-label">Years Nashville</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">9-Pc</span>
+        <span class="stat-label">Full Production Available</span>
+      </div>
+    </div>
+
+    <a href="mailto:mudbonemusic@gmail.com" class="book-cta">Inquire About Booking</a>
+  </div>
+
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="#C8901A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+  </div>
+</section>
+
+<!-- ═══ SHORT BIO ══════════════════════════════════════════ -->
+<section class="section" style="padding-bottom: 3rem;">
+  <span class="section-eyebrow">The Artist</span>
+  <div class="rule"></div>
+  <div class="bio-text">
+    <p>Mudbone is a Nashville-based singer, songwriter, guitarist, and producer whose debut double album <em>Rivers &amp; Roads</em> broke into the Top 100 on the Americana charts independently — twice. Gifted his blues name in a chance encounter with a protégé of blues pioneer Son House, he has spent 25 years and 200+ shows a year building one of the most versatile live acts in American roots music.</p>
+    <p>His performances scale from intimate solo acoustic sets to full 9-piece band productions, drawing fans of all ages and appealing across a vast demographic — exactly what casino and festival buyers need. He is a Van Go Records / Americana Music Association recording artist, holds endorsements with Taylor Guitars, Mesa Amps, Jim Dunlop, and MXR, and his new album arrives in 2026–2027.</p>
+  </div>
+</section>
+
+<!-- ═══ PULL QUOTE ═════════════════════════════════════════ -->
+<div style="max-width: 1060px; margin: 0 auto; padding: 0 2rem 4rem;">
+  <div class="pull-quote">
+    <blockquote>"Mudbone's music is flat out powerful. He will reach into your soul, conjure your demons and then release them for you."</blockquote>
+    <cite>— Outlaw Magazine</cite>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- ═══ PERFORMANCE OFFERINGS ═════════════════════════════ -->
+<section class="section">
+  <span class="section-eyebrow">Live Formats</span>
+  <div class="rule"></div>
+  <h2 class="section-title">Built for Every Stage</h2>
+
+  <div class="perf-grid">
+    <div class="perf-card">
+      <h3>Full Band Production</h3>
+      <p>Up to 9-piece configuration. Full rhythm section, horns, keys. High-energy roots rock set designed to move a crowd in any size room — from casino showroom to main stage festival.</p>
+    </div>
+    <div class="perf-card">
+      <h3>Solo Acoustic</h3>
+      <p>Stripped-down and intimate. Perfect for VIP lounges, private events, smaller casino rooms, or acoustic stages. The raw Delta blues tradition in its purest form.</p>
+    </div>
+    <div class="perf-card">
+      <h3>Trio / Small Band</h3>
+      <p>Flexible mid-scale option. All the energy of the full production in a compact, cost-effective package — ideal for festivals with production constraints or mid-size venues.</p>
+    </div>
+    <div class="perf-card">
+      <h3>Casino Circuit Ready</h3>
+      <p>Proven on casino stages nationally. Versatile setlists spanning blues, soul, country, and rock that pull broad demographics. New material in studio for 2026–2027 release.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══ PHOTO STRIP ════════════════════════════════════════ -->
+<div class="photo-strip">
+  <img src="https://drive.google.com/thumbnail?id=1fA4_5Y0zoQgk-ykbFFsocGin8pw-jxa0&sz=w600" alt="Mudbone promo shot" loading="lazy">
+  <img src="https://drive.google.com/thumbnail?id=1E1RB8lyoeXaw_qHrBOvPUWendYpmStT_&sz=w600" alt="Mudbone promo shot" loading="lazy">
+  <img src="https://drive.google.com/thumbnail?id=1EmbruBQZzBzCY4n0coyX28lis1Rca8cV&sz=w600" alt="Mudbone promo shot" loading="lazy">
+  <img src="https://drive.google.com/thumbnail?id=1DUEJ9yechXfA8UfbQeTh1FB5qlgHxiOt&sz=w600" alt="Mudbone high res" loading="lazy">
+</div>
+
+<hr class="sep">
+
+<!-- ═══ VIDEOS ═════════════════════════════════════════════ -->
+<section class="section">
+  <span class="section-eyebrow">Watch</span>
+  <div class="rule"></div>
+  <h2 class="section-title">Video</h2>
+
+  <div class="video-grid">
+    <a class="video-link" href="https://youtu.be/xScUGruXJ1s" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/xScUGruXJ1s/hqdefault.jpg" alt="Mudbone EPK Video">
+        <div class="play-icon">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><polygon points="19,15 37,24 19,33" fill="var(--amber)"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <h3>Official EPK Video</h3>
+        <p>Full Artist Overview</p>
+      </div>
+    </a>
+    <a class="video-link" href="https://youtu.be/8anxlwafMwo" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/8anxlwafMwo/hqdefault.jpg" alt="Whipping Post in a Cave With An Orchestra">
+        <div class="play-icon">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><polygon points="19,15 37,24 19,33" fill="var(--amber)"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <h3>Whipping Post — Cave &amp; Orchestra</h3>
+        <p>Live Performance</p>
+      </div>
+    </a>
+    <a class="video-link" href="https://youtu.be/gjrYYQYwY7I" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/gjrYYQYwY7I/hqdefault.jpg" alt="Mudbone Interview">
+        <div class="play-icon">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><polygon points="19,15 37,24 19,33" fill="var(--amber)"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <h3>Artist Interview</h3>
+        <p>In Conversation</p>
+      </div>
+    </a>
+    <a class="video-link" href="https://youtu.be/yZ6y0z39tDQ" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/yZ6y0z39tDQ/hqdefault.jpg" alt="Mudbone Live in Birmingham">
+        <div class="play-icon">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><polygon points="19,15 37,24 19,33" fill="var(--amber)"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <h3>Live in Birmingham</h3>
+        <p>Full Concert</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══ MUSIC ══════════════════════════════════════════════ -->
+<section class="section">
+  <span class="section-eyebrow">Listen</span>
+  <div class="rule"></div>
+  <h2 class="section-title">Music</h2>
+
+  <div class="music-links">
+    <a class="music-link" href="https://spotify.link/bYkPY3GTsJb" target="_blank" rel="noopener">
+      <div class="music-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      </div>
+      <div class="music-link-text">
+        <strong>Spotify</strong>
+        <span>Artist Page</span>
+      </div>
+    </a>
+    <a class="music-link" href="https://spotify.link/64wX8zYhOJb" target="_blank" rel="noopener">
+      <div class="music-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      </div>
+      <div class="music-link-text">
+        <strong>Good Thing Bad</strong>
+        <span>Rivers &amp; Roads Pt. 2</span>
+      </div>
+    </a>
+    <a class="music-link" href="https://spotify.link/ldJAqG8hOJb" target="_blank" rel="noopener">
+      <div class="music-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      </div>
+      <div class="music-link-text">
+        <strong>I've Been Workin'</strong>
+        <span>Rivers &amp; Roads Pt. 2</span>
+      </div>
+    </a>
+    <a class="music-link" href="https://spotify.link/EmgMAGdiOJb" target="_blank" rel="noopener">
+      <div class="music-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      </div>
+      <div class="music-link-text">
+        <strong>Christmas Whiskey</strong>
+        <span>A Veterans Tribute</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══ TOURED WITH ════════════════════════════════════════ -->
+<section class="section">
+  <span class="section-eyebrow">Pedigree</span>
+  <div class="rule"></div>
+  <h2 class="section-title">Toured With &amp; Opened For</h2>
+
+  <div class="toured-list">
+    <span class="toured-pill">Charlie Daniels</span>
+    <span class="toured-pill">Lynyrd Skynyrd</span>
+    <span class="toured-pill">Kid Rock</span>
+    <span class="toured-pill">Kansas</span>
+    <span class="toured-pill">Marshall Tucker Band</span>
+    <span class="toured-pill">Montgomery Gentry</span>
+    <span class="toured-pill">Bret Michaels</span>
+    <span class="toured-pill">Buddy Guy</span>
+    <span class="toured-pill">Bobby Rush</span>
+    <span class="toured-pill">Lisa Marie Presley</span>
+    <span class="toured-pill">BB King</span>
+    <span class="toured-pill">Rufus Thomas</span>
+    <span class="toured-pill">Dean Dillon</span>
+    <span class="toured-pill">Merle Haggard</span>
+    <span class="toured-pill">Blake Shelton</span>
+    <span class="toured-pill">Jamey Johnson</span>
+    <span class="toured-pill">Hank Williams Jr.</span>
+    <span class="toured-pill">The Temptations</span>
+    <span class="toured-pill">Foghat</span>
+    <span class="toured-pill">Percy Sledge</span>
+    <span class="toured-pill">The Kentucky Headhunters</span>
+    <span class="toured-pill">Rhonda Vincent &amp; The Rage</span>
+    <span class="toured-pill">Aaron Tippin</span>
+    <span class="toured-pill">Joe Diffie</span>
+    <span class="toured-pill">Samantha Fish</span>
+    <span class="toured-pill">Billy Joe Shaver</span>
+    <span class="toured-pill">The Atlanta Rhythm Section</span>
+    <span class="toured-pill">The Memphis Horns</span>
+    <span class="toured-pill">The Bar-Kays</span>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══ ENDORSEMENTS ══════════════════════════════════════ -->
+<section class="section" style="padding-top: 3.5rem; padding-bottom: 3.5rem;">
+  <span class="section-eyebrow">Endorsements &amp; Affiliations</span>
+  <div class="rule"></div>
+
+  <div class="endorse-list">
+    <span class="endorse-pill">Taylor Guitars</span>
+    <span class="endorse-pill">Mesa Amps</span>
+    <span class="endorse-pill">Jim Dunlop</span>
+    <span class="endorse-pill">MXR Effects Pedals</span>
+    <span class="endorse-pill">Goldtone Instruments</span>
+    <span class="endorse-pill">Klein Guitars</span>
+    <span class="endorse-pill">SESAC</span>
+    <span class="endorse-pill">Riverland Publishing</span>
+    <span class="endorse-pill">Van Go Records</span>
+    <span class="endorse-pill">Americana Music Association</span>
+    <span class="endorse-pill">R&amp;DA Military Assistance Program</span>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══ CONTACT ════════════════════════════════════════════ -->
+<section class="section">
+  <span class="section-eyebrow">Booking</span>
+  <div class="rule"></div>
+  <h2 class="section-title">Get In Touch</h2>
+
+  <div class="contact-block">
+    <div class="contact-item">
+      <label>Artist / Direct Booking</label>
+      <p>Kris Caldwell (Mudbone)</p>
+    </div>
+    <div class="contact-item">
+      <label>Email</label>
+      <a href="mailto:mudbonemusic@gmail.com">mudbonemusic@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <label>Phone / Text</label>
+      <a href="tel:+16152896257">615-289-6257</a>
+    </div>
+    <div class="contact-item">
+      <label>Website</label>
+      <a href="http://www.mudboneofficial.com" target="_blank" rel="noopener">mudboneofficial.com</a>
+    </div>
+    <div class="contact-item">
+      <label>Checks Payable To</label>
+      <p>Kris Caldwell</p>
+    </div>
+    <div class="contact-item">
+      <label>Mailing Address</label>
+      <p>509 Ashlawn Cir, Nashville TN 37211</p>
+    </div>
+  </div>
+
+  <div class="social-row">
+    <a class="social-btn" href="https://www.facebook.com/share/HqzJuG5A6BqyDXgT/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      Facebook
+    </a>
+    <a class="social-btn" href="https://www.instagram.com/mudbone_music" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Instagram
+    </a>
+    <a class="social-btn" href="https://spotify.link/bYkPY3GTsJb" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      Spotify
+    </a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═════════════════════════════════════════════ -->
+<footer>
+  <img src="https://drive.google.com/thumbnail?id=1NhLKzIRg-hA8RJsEbqnOiS6Ip5We8zpV&sz=w300" alt="Mudbone">
+  <p>© 2026 Mudbone Music &nbsp;·&nbsp; mudboneofficial.com</p>
+  <p class="mmg-credit">EPK by McDowell Media Group · mcdowellmediagroup.com</p>
+</footer>
+
+<script>
+  // Subtle parallax on hero bg
+  const heroBg = document.querySelector('.hero-bg');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < window.innerHeight) {
+      heroBg.style.transform = `scale(1.04) translateY(${y * 0.15}px)`;
+    }
+  }, { passive: true });
+</script>
+</body>
+</html>
